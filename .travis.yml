@@ -1,0 +1,27 @@
+sudo: false
+language: go
+go:
+- 1.6
+- tip
+matrix:
+  allow_failures:
+  - go: tip
+env:
+  global:
+    secure: iIsASdx5wZYuPQwxG1g5jNLACpoxAZuAc51HRmVD6AB/Mn+znM2PWxnMBoKjia6jzGBTalqIfnZAHfjkADelV8kNnmWWXiZhYQTo8tD0sdq+VEn6BGfdhvhzJmDuqeowf3LDJGfYIth0CuAH1e2JJyOIlejYMOoZ/4ocQE0PN95TqouRe5QC9/TiJjet4aGDwDTqUwBzJVfxXm9sanCItXVWYwUpx3i9ejZd/QkwHXK4y0X3NoWEUzbhEqDs8lOjW7ySrNCNvwbQXd0aqh2HosCvWRKXZm1M0mo63H90xb/0KyVbRExgBIYeRYeAhdmbvyP4vwrmNXIxyepUJmUcDdPJBDBQK6X301snJab8FkyQQm/qeTQhBcPW355bpm4daB5j2MTX4xu49Ozpd1pp/+p5TCjF5DM9qtWuOkHRkTEVU6S9aq7Easqz8/vpBUkej8UHrs55TmVZQ03VWWyQ2tHMolZ3l2/XvtBnFgY9CMEVlPna3K4Ug+FIl4z/Vh4xdGHBoWlI8zLRzLQtEjwIHhxPcwbnafu3pEw9HJwTS2KZeGySbgQenT2eGfarzmheMK+k9eXIQ+sgnTsxcVdWk/DJEvo3yTw/W1X423wZa9F3fe6jg97Z/wvNpPKdf/9wl2P/nnoFeY4AJ4B/UF90n0QlYOCY5zPShWdLmMLOA0s=
+before_install:
+- if ! go get github.com/golang/tools/cmd/cover; then go get golang.org/x/tools/cmd/cover;
+  fi
+- go get github.com/modocache/gover github.com/mitchellh/gox github.com/tcnksm/ghr
+before_script:
+- go vet ./...
+- gofmt -s -l .
+script:
+- go list -f '{{if len .TestGoFiles}}"go test -coverprofile={{.Dir}}/.coverprofile
+  {{.ImportPath}}"{{end}}' ./... | xargs -I{} sh -c '{}'
+- gover . coverprofile.txt
+after_success:
+- bash <(curl -s https://codecov.io/bash) -f coverprofile.txt
+- test "$TRAVIS_BRANCH" == "master" && test "$TRAVIS_PULL_REQUEST" == "false" && gox
+  --osarch "darwin/amd64 linux/amd64 windows/amd64" --output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}"
+  && ghr -t $GH_TOKEN --replace `cat VERSION` dist/
