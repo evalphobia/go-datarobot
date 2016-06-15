@@ -8,7 +8,8 @@ matrix:
   - go: tip
 env:
   global:
-    secure: iIsASdx5wZYuPQwxG1g5jNLACpoxAZuAc51HRmVD6AB/Mn+znM2PWxnMBoKjia6jzGBTalqIfnZAHfjkADelV8kNnmWWXiZhYQTo8tD0sdq+VEn6BGfdhvhzJmDuqeowf3LDJGfYIth0CuAH1e2JJyOIlejYMOoZ/4ocQE0PN95TqouRe5QC9/TiJjet4aGDwDTqUwBzJVfxXm9sanCItXVWYwUpx3i9ejZd/QkwHXK4y0X3NoWEUzbhEqDs8lOjW7ySrNCNvwbQXd0aqh2HosCvWRKXZm1M0mo63H90xb/0KyVbRExgBIYeRYeAhdmbvyP4vwrmNXIxyepUJmUcDdPJBDBQK6X301snJab8FkyQQm/qeTQhBcPW355bpm4daB5j2MTX4xu49Ozpd1pp/+p5TCjF5DM9qtWuOkHRkTEVU6S9aq7Easqz8/vpBUkej8UHrs55TmVZQ03VWWyQ2tHMolZ3l2/XvtBnFgY9CMEVlPna3K4Ug+FIl4z/Vh4xdGHBoWlI8zLRzLQtEjwIHhxPcwbnafu3pEw9HJwTS2KZeGySbgQenT2eGfarzmheMK+k9eXIQ+sgnTsxcVdWk/DJEvo3yTw/W1X423wZa9F3fe6jg97Z/wvNpPKdf/9wl2P/nnoFeY4AJ4B/UF90n0QlYOCY5zPShWdLmMLOA0s=
+  - secure: iIsASdx5wZYuPQwxG1g5jNLACpoxAZuAc51HRmVD6AB/Mn+znM2PWxnMBoKjia6jzGBTalqIfnZAHfjkADelV8kNnmWWXiZhYQTo8tD0sdq+VEn6BGfdhvhzJmDuqeowf3LDJGfYIth0CuAH1e2JJyOIlejYMOoZ/4ocQE0PN95TqouRe5QC9/TiJjet4aGDwDTqUwBzJVfxXm9sanCItXVWYwUpx3i9ejZd/QkwHXK4y0X3NoWEUzbhEqDs8lOjW7ySrNCNvwbQXd0aqh2HosCvWRKXZm1M0mo63H90xb/0KyVbRExgBIYeRYeAhdmbvyP4vwrmNXIxyepUJmUcDdPJBDBQK6X301snJab8FkyQQm/qeTQhBcPW355bpm4daB5j2MTX4xu49Ozpd1pp/+p5TCjF5DM9qtWuOkHRkTEVU6S9aq7Easqz8/vpBUkej8UHrs55TmVZQ03VWWyQ2tHMolZ3l2/XvtBnFgY9CMEVlPna3K4Ug+FIl4z/Vh4xdGHBoWlI8zLRzLQtEjwIHhxPcwbnafu3pEw9HJwTS2KZeGySbgQenT2eGfarzmheMK+k9eXIQ+sgnTsxcVdWk/DJEvo3yTw/W1X423wZa9F3fe6jg97Z/wvNpPKdf/9wl2P/nnoFeY4AJ4B/UF90n0QlYOCY5zPShWdLmMLOA0s=
+  - secure: FF4qH47gEQscSzFTfe6uITZ0zwoTicJNT/299oS1uglg/CVNVDaw7EvUdWE+Iw3E+g/4aBmOvDzMSJmW79J3jTikh1PLlqZZTdthFLRIZ/5SPwOJalu4RunBkZqOIse0is1Q86I8ibElB7CwDSSMfFYSGVJtZJisNi1kKkOR46KRAxPsAlm0N+EX0WvVW0d0KFbqGJP72ZZbmzfl+lzO9IJMdtYFOMODqwIK6IcIntvRUpYv841WmAP4+V53CdXfkn4Zu8ZdOf3aUj06cIo2r9H27I2n9EGR8OltIqDtgjr513jI2vByYMCr6ylwkuv/bp8q5J9nqH+32WHPob/YTuyNmD35xv2WDMjk1RqlDMKg3GR0G0Su4AbgOx4vMqodJ7ZKaTRdiEMP+AYOcIt+PvzYWNspyFzcs9UfNhyG/ZEzf4koX7Rnwd2tV6XWXuNPKAToDqOahdCu0XEWth+3i2XABEe/cmwDHpGQBQ7Ko+f6cFx+3dOiB+uFYQpMatP9CdoNfqntVqbAQjyQnuJ5TW/6h0v4kquKbvrLNqd7D65/ACwGFi/zw54/1uEQTWSs/zQXzLudywrKGxKWXiTTGZ3RB/lCH0tQnN1EQcfnTB6sZVPD7s+CRr0N9hb69G+nVa5855SQFL3MlZbvDKOfXbsJQpFxd1vlxEpg9REOtiQ=
 before_install:
 - if ! go get github.com/golang/tools/cmd/cover; then go get golang.org/x/tools/cmd/cover;
   fi
@@ -16,12 +17,13 @@ before_install:
 before_script:
 - go vet ./...
 - gofmt -s -l .
+- echo $TRAVIS_GO_VERSION
 script:
 - go list -f '{{if len .TestGoFiles}}"go test -coverprofile={{.Dir}}/.coverprofile
   {{.ImportPath}}"{{end}}' ./... | xargs -I{} sh -c '{}'
 - gover . coverprofile.txt
 after_success:
 - bash <(curl -s https://codecov.io/bash) -f coverprofile.txt
-- test "$TRAVIS_BRANCH" == "master" && test "$TRAVIS_PULL_REQUEST" == "false" && gox
+- test "$TRAVIS_BRANCH" == "master" && test "$TRAVIS_PULL_REQUEST" == "false" && test "$TRAVIS_GO_VERSION" == "1.6" && gox
   --osarch "darwin/amd64 linux/amd64 windows/amd64" --output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}"
-  && ghr -t $GH_TOKEN --replace `cat VERSION` dist/
+  && ghr -t $GH_TOKEN -u $GH_USER --replace `cat VERSION` dist/
