@@ -31,7 +31,7 @@ func initFlag() {
 	flag.StringVar(&token, "token", "", "datarobot api token")
 	flag.StringVar(&projectID, "project", "", "datarobot project_id")
 	flag.StringVar(&modelID, "model", "", "datarobot model_id")
-	flag.StringVar(&hostName, "host", "", "datarobot dedicated host")
+	flag.StringVar(&hostName, "host", "https://app.datarobot.com", "datarobot dedicated host")
 	flag.StringVar(&key, "key", "", "datarbot dedicated host key")
 	flag.IntVar(&blockSize, "block", 1000, "block data size to send api request")
 	flag.Parse()

@@ -14,17 +14,15 @@ type Config struct {
 }
 
 // NewWithToken returns initialized Config with api token
-func NewWithToken(user, token, hostName, key string) Config {
-	h := hostName
-	k := key
-	if h == "" {
-		h = endpointApp
-	}
-
+func NewWithTokenAndHost(user, token, hostName, key string) Config {
 	return Config{
-		HostName: h,
-		Key: k,
+		HostName: hostName,
+		Key: key,
 		User:  user,
 		Token: token,
 	}
+}
+
+func NewWithToken(user, token string) Config {
+	return NewWithTokenAndHost(user, token, endpointApp, "")
 }

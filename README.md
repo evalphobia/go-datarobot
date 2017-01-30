@@ -32,7 +32,9 @@ $ go-datarobot \
     -user example@example.com \
     -token <your api token> \
     -project <project id> \
-    -model <model id>
+    -model <model id> \
+    -host <dedicated host> \
+    -key <dedicated host key>
 
 ======== running setting ==========
 input: ./example/input.csv
@@ -69,7 +71,9 @@ user_id,flag,true,false
 - `-token`: datarobot account api token (required)
 - `-project`: datarobot account project id (required)
 - `-model`: datarobot account model id (required)
-- `-block`: row data size to send api request (default:1000)
+- `-block`: row data size to send api request (default: 1000)
+- `-host` : dedicated hostname; will use shared host if none given (default: https://app.datarobot.com)
+- `-key` : dedicated host key (default: )
 
 ## API client
 
