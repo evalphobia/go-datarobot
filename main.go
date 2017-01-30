@@ -59,7 +59,7 @@ func main() {
 	readCh := readLines(csv)
 
 	// send req
-	c := config.NewWithToken(user, token, hostName, key)
+	c := config.NewWithTokenAndHost(user, token, hostName, key)
 	maxReq := make(chan bool, 5)
 	writeCh := make(chan apiResult)
 	reqCount := 0
