@@ -7,21 +7,19 @@ import (
 
 	"github.com/evalphobia/go-datarobot/apiclient/config"
 )
-
-const (
-	endpointApp = "https://app.datarobot.com"
-)
-
 // Post sends POST request to datarobot api
 func Post(c config.Config, path string, param interface{}) (*Response, error) {
 	cli := gentleman.New()
 	cli.Use(auth.Basic(c.User, c.Token))
-	cli.URL(endpointApp)
+	cli.URL(c.HostName)
 
 	req := cli.Request()
 	req.Path(path)
 	req.Use(body.JSON(param))
 	req.Method("POST")
+	if c.Key != "" {
+		req.AddHeader("datarobot-key", c.Key)
+	}
 
 	res, err := req.Send()
 	if err != nil {

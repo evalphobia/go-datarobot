@@ -17,6 +17,8 @@ var (
 	token     string
 	projectID string
 	modelID   string
+	hostName  string
+	key       string
 	blockSize int
 
 	lock = sync.Mutex{}
@@ -29,14 +31,17 @@ func initFlag() {
 	flag.StringVar(&token, "token", "", "datarobot api token")
 	flag.StringVar(&projectID, "project", "", "datarobot project_id")
 	flag.StringVar(&modelID, "model", "", "datarobot model_id")
+	flag.StringVar(&hostName, "host", "", "datarobot dedicated host")
+	flag.StringVar(&key, "key", "", "datarbot dedicated host key")
 	flag.IntVar(&blockSize, "block", 1000, "block data size to send api request")
 	flag.Parse()
 
 	fmt.Println("======== running setting ==========")
-	fmt.Printf("input: %s\noutput: %s\nuser: %s\nproject: %s\nmodel: %s\nblock size: %d\n",
+	fmt.Printf("input: %s\noutput: %s\nuser: %s\nproject: %s\nmodel: %s\nblock size: %d\nhost name: %s\nkey: %s\n",
 		input, output,
 		user, projectID, modelID,
-		blockSize)
+		blockSize, hostName,
+		key)
 	fmt.Println("====================================")
 }
 
@@ -54,7 +59,7 @@ func main() {
 	readCh := readLines(csv)
 
 	// send req
-	c := config.NewWithToken(user, token)
+	c := config.NewWithToken(user, token, hostName, key)
 	maxReq := make(chan bool, 5)
 	writeCh := make(chan apiResult)
 	reqCount := 0
