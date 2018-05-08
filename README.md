@@ -1,8 +1,32 @@
 go-datarobot
-====
+----
 
-[![Build Status](https://travis-ci.org/evalphobia/go-datarobot.svg?branch=master)](https://travis-ci.org/evalphobia/go-datarobot) [![codecov](https://codecov.io/gh/evalphobia/go-datarobot/branch/master/graph/badge.svg)](https://codecov.io/gh/evalphobia/go-datarobot)
- [![GoDoc](https://godoc.org/github.com/evalphobia/go-datarobot?status.svg)](https://godoc.org/github.com/evalphobia/go-datarobot)
+[![GoDoc][1]][2] [![License: Apache 2.0][23]][24] [![Release][5]][6] [![Build Status][7]][8] [![Codecov Coverage][11]][12] [![Go Report Card][13]][14] [![Code Climate][19]][20] [![BCH compliance][21]][22]
+
+[1]: https://godoc.org/github.com/evalphobia/go-datarobot?status.svg
+[2]: https://godoc.org/github.com/evalphobia/go-datarobot
+[3]: https://img.shields.io/badge/License-MIT-blue.svg
+[4]: LICENSE.md
+[5]: https://img.shields.io/github/release/evalphobia/go-datarobot.svg
+[6]: https://github.com/evalphobia/go-datarobot/releases/latest
+[7]: https://travis-ci.org/evalphobia/go-datarobot.svg?branch=master
+[8]: https://travis-ci.org/evalphobia/go-datarobot
+[9]: https://coveralls.io/repos/evalphobia/go-datarobot/badge.svg?branch=master&service=github
+[10]: https://coveralls.io/github/evalphobia/go-datarobot?branch=master
+[11]: https://codecov.io/github/evalphobia/go-datarobot/coverage.svg?branch=master
+[12]: https://codecov.io/github/evalphobia/go-datarobot?branch=master
+[13]: https://goreportcard.com/badge/github.com/evalphobia/go-datarobot
+[14]: https://goreportcard.com/report/github.com/evalphobia/go-datarobot
+[15]: https://img.shields.io/github/downloads/evalphobia/go-datarobot/total.svg?maxAge=1800
+[16]: https://github.com/evalphobia/go-datarobot/releases
+[17]: https://img.shields.io/github/stars/evalphobia/go-datarobot.svg
+[18]: https://github.com/evalphobia/go-datarobot/stargazers
+[19]: https://codeclimate.com/github/evalphobia/go-datarobot/badges/gpa.svg
+[20]: https://codeclimate.com/github/evalphobia/go-datarobot
+[21]: https://bettercodehub.com/edge/badge/evalphobia/go-datarobot?branch=master
+[22]: https://bettercodehub.com/
+[23]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
+[24]: LICENSE.md
 
 
 - `go-datarobot` is golang cli app to get prediction result from [Datarobot](https://www.datarobot.com/) API and add class probabilities into the csv file.
